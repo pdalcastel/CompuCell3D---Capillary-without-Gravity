@@ -1,0 +1,83 @@
+<CompuCell3D Revision="20210612" Version="4.2.5">
+   
+   <Metadata>
+      
+      <!-- Basic properties simulation -->
+      <NumberOfProcessors>1</NumberOfProcessors>
+      <DebugOutputFrequency>10</DebugOutputFrequency>
+      <!-- <NonParallelModule Name="Potts"/> -->
+   </Metadata>
+   
+   <Potts>
+      
+      <!-- Basic properties of CPM (GGH) algorithm -->
+      <Dimensions x="256" y="256" z="1"/>
+      <Steps>100000</Steps>
+      <Temperature>10.0</Temperature>
+      <NeighborOrder>1</NeighborOrder>
+   </Potts>
+   
+   <Plugin Name="CellType">
+      
+      <!-- Listing all cell types in the simulation -->
+      <CellType TypeId="0" TypeName="Medium"/>
+      <CellType Freeze="" TypeId="1" TypeName="Wall"/>
+      <CellType TypeId="2" TypeName="Fluid"/>
+   </Plugin>
+   
+   <Plugin Name="CenterOfMass">
+      
+      <!-- Module tracking center of mass of each cell -->
+   </Plugin>
+   
+   <Plugin Name="Contact">
+      <!-- Specification of adhesion energies -->
+      <Energy Type1="Medium" Type2="Medium">10.0</Energy>
+      <Energy Type1="Medium" Type2="Wall">15.0</Energy>
+      <Energy Type1="Medium" Type2="Fluid">15.0</Energy>
+      <Energy Type1="Wall" Type2="Wall">10.0</Energy>
+      <Energy Type1="Wall" Type2="Fluid">10.0</Energy>
+      <Energy Type1="Fluid" Type2="Fluid">0.0</Energy>
+      <NeighborOrder>4</NeighborOrder>
+   </Plugin>
+   
+   <Steppable Type="UniformInitializer">
+      
+      <!-- Initial layout of cells in the form of rectangular slab -->
+      <Region>
+         <BoxMin x="0" y="20" z="0"/>
+         <BoxMax x="256" y="100" z="1"/>
+         <Gap>0</Gap>
+         <Width>80</Width>
+         <Types>Fluid</Types>
+      </Region>
+      <Region>
+         <BoxMin x="0" y="100" z="0"/>
+         <BoxMax x="64" y="256" z="1"/>
+         <Gap>0</Gap>
+         <Width>4</Width>
+         <Types>Wall</Types>
+      </Region>
+      <Region>
+         <BoxMin x="66" y="100" z="0"/>
+         <BoxMax x="124" y="256" z="1"/>
+         <Gap>0</Gap>
+         <Width>4</Width>
+         <Types>Wall</Types>
+      </Region>
+      <Region>
+         <BoxMin x="132" y="100" z="0"/>
+         <BoxMax x="184" y="256" z="1"/>
+         <Gap>0</Gap>
+         <Width>4</Width>
+         <Types>Wall</Types>
+      </Region>
+      <Region>
+         <BoxMin x="200" y="100" z="0"/>
+         <BoxMax x="256" y="256" z="1"/>
+         <Gap>0</Gap>
+         <Width>4</Width>
+         <Types>Wall</Types>
+      </Region>
+   </Steppable>
+</CompuCell3D>
